@@ -1,0 +1,57 @@
+﻿<Window x:Class="Telefonszamok_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Telefonszamok_WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <StackPanel>
+       
+        <!--Menű létrehozása-->
+        <Menu>
+            <MenuItem x:Name="miFile" Header="Fájl">
+                <MenuItem x:Name="miMentes" Header="Mentés" Click="miMentes_Click"/>
+                <Separator/>
+                <MenuItem x:Name="miKilepes" Header="Kilépés" Click="miKilepes_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="miLekerdezes" Header="Lekérdezés">
+                <MenuItem x:Name="miMindenAdat" Header="Minden adat táblázatosan" Click="miMindenAdat_Click"/>
+                <MenuItem x:Name="miHelysegek" Header="Helységek" Click="miHelysegek_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="miAdatFelvitelModositas" Header="Adatfelvitel/Módosítás">
+                <MenuItem x:Name="miHelysegAM" Header="Helységek" Click="miHelysegAM_Click"/>
+            </MenuItem>
+        </Menu>
+        <!--Grid létrehozása a táblázatos adatok mejleneítésére, A hidden property változtatásával láthatóvá tehető a vezérlő-->
+        <DataGrid x:Name="dgAdatracs" Visibility="Hidden" DataContext="{Binding}"/>
+        <!--Egy beviteli felület létrehozása label-ek, combo boxok és gombok felhasználásával. A hidden property változtatásával láthatóvá tehető a vezérlő-->
+        <Grid x:Name="grHelyseg" Visibility="Hidden" Margin="0,10,0,0" DataContext="{Binding}">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Keresés irányítószám alapján" Grid.Row="0" Grid.Column="0"/>
+            <!--A combo box a grHelyseg adatait jeleníti meg, a DisplayMemberPath a megjelenített adatmezőt határozza meg-->
+            <ComboBox x:Name="cbIrsz" ItemsSource="{Binding}" DisplayMemberPath="Irsz" Grid.Row="0" Grid.Column="1" Margin="5"  IsSynchronizedWithCurrentItem="True" SelectionChanged="cbIrsz_SelectionChanged"/>
+            <Label Content="Keresés helységnév alapján" Grid.Row="1" Grid.Column="0" />
+            <ComboBox x:Name="cbHelysegnev" ItemsSource="{Binding}" DisplayMemberPath="Nev" Grid.Row="1" Grid.Column="1" Margin="5" IsSynchronizedWithCurrentItem="True"/>
+            <Label Content="Irányítószám" Grid.Row="2" Grid.Column="0"/>
+            <TextBox x:Name="tbIrsz" Grid.Row="2" Grid.Column="1" Margin="5"/>
+            <Label Content="Helységnév" Grid.Row="3" Grid.Column="0"/>
+            <TextBox x:Name="tbHelysegnev" Grid.Row="3" Grid.Column="1" Margin="5"/>
+            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btRogzit" Content="Módosított adatpár rögzítése" Margin="50,50,10,10" Click="btRogzit_Click"/>
+                <Button x:Name="btUjHelyseg" Content="Új helység" Margin="50,50,10,10" Click="btUjHelyseg_Click" />
+                <Button x:Name="btVissza" Content="Vissza"  Margin="50,50,10,10" Click="btVissza_Click" />
+            </StackPanel>    
+        </Grid>
+    </StackPanel>
+</Window>
